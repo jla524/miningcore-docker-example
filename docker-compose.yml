@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  postgres:
+    build:
+      context: ./
+      dockerfile: postgres.dockerfile
+    expose:
+      - 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: miningcore
+      POSTGRES_PASSWORD: miningcore
+      POSTGRES_DB: miningcore
+
+  exccd:
+    image: exccco/exccd:2.2.0-alpine3.9
+    ports:
+      - 9666:9666
+    volumes:
+      - ./conf/exccd.conf:/app/exccd.conf
+      - ./conf/exccd.cert:/app/rpc.cert
+      - ./conf/exccd.key:/app/rpc.key
+      - exccd-data:/data
+
+  exccwallet:
+    image: exccco/exccwallet:2.2.0-alpine3.9
+    volumes:
+      - ./conf/exccwallet.conf:/app/exccwallet.conf
+      - ./conf/exccd.cert:/app/exccd.cert
+      - exccwallet-data:/data
+    depends_on:
+      - exccd
+
+  miningcore:
+    image: exccco/miningcore:2.1.500
+    ports:
+      - 3032-3199:3032-3199
+      - 4000:4000
+    volumes:
+      - ./conf/excc_pool.json:/config.json
+    depends_on:
+      - exccd
+      - exccwallet
+      - postgres
+
+  miningcore-ui:
+    image: exccco/miningcore-ui
+    ports:
+      - 8080:80
+    environment:
+      - API_URL=http://localhost:4000/api
+      - DEFAULT_POOL=exchangeCoin
+    depends_on:
+      - miningcore
+
+volumes:
+  postgres-data:
+  exccd-data:
+  exccwallet-data:
