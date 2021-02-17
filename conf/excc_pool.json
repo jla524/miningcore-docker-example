@@ -49,15 +49,13 @@
     },
     "pools": [
         {
-            "id": "exchangeCoin",
+            "id": "Bitcoin",
             "enabled": true,
-            "coin": {
-                "type": "EXCC"
-            },
-            "address": "22tmjxDkARVh3BCB27yorqT4RUPJWM41Yntr",
+            "coin": "BTC",
+            "address": "yiZodEgQLbYDrWzgBXmfUUHeBVXBNr8rwR",
             "rewardRecipients": [
                 {
-                    "address": "22tzmAoonJA6tt7g2kBcRTWtu46wAJQJHzhA",
+                    "address": "yiZodEgQLbYDrWzgBXmfUUHeBVXBNr8rwR",
                     "percentage": 1.5
                 }
             ],
