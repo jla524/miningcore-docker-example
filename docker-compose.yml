@@ -42,8 +42,6 @@ services:
     volumes:
       - ./conf/excc_pool.json:/config.json
     depends_on:
-      - exccd
-      - exccwallet
       - postgres
 
   miningcore-ui:
@@ -52,7 +50,7 @@ services:
       - 8080:80
     environment:
       - API_URL=http://localhost:4000/api
-      - DEFAULT_POOL=exchangeCoin
+      - DEFAULT_POOL=Bitcoin
     depends_on:
       - miningcore
 

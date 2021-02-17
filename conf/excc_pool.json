@@ -91,17 +91,7 @@
                     "ssl": true,
                     "validateCert": false
                 }
-            ],
-            "wallets": [
-                {
-                    "host": "exccwallet",
-                    "port": 9110,
-                    "user": "rpcuser",
-                    "password": "rpcpass",
-                    "ssl": true,
-                    "validateCert": false
-                }
-            ],
+            ], 
             "paymentProcessing": {
                 "enabled": true,
                 "minimumPayment": 0.01,
